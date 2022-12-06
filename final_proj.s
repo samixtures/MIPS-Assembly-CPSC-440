@@ -27,15 +27,15 @@
 
 
 ## So they input the whole equation with 5 numbers and 4 symbols.
-## We add that first numbre to the total variable (I guess that's $t0)
+## We add that first number to the total variable (I guess that's $t1)
 ## Then we jump to the function of whatever symbol is the next character.
 ## So if it's addition we jump to addFunc and boom in that function we go to the next character
 ## We get the next character, save it as a number in a register (say $t2) and then we add $t0 and $t2 I guess
 ## Then we jump back to the main function and continue going through to the next character
-## All this time actually we need to be incrementing some counter variable ($t1 I guess) which tells us which char to be on
+## All this time actually we need to be incrementing some counter variable ($t0 I guess) which tells us which char to be on
 ## And actually we end the program if the counter variable reaches 9
 ## After incrementing it we should always check if it has reached 9, and when it does we jump to the endFunc
-# The end endFun prints out $t0 to the console and then ends the program
+# The end endFun prints out $t1 to the console and then ends the program
 
 
 ## and when the counter reaches 0 we jump to the end
@@ -43,7 +43,10 @@
 ## Just found it the user will be typing the whole thing at once rather than each character at a time. Interesting.
 
 
+## BIG QUESTION: How to parse through the 9 character string one character at a time :))) -___- ?! :OOOO
+
     .data
+msg1:	.asciiz	"Input a math expression: "
 numsArray:	.asciiz	"0123456789"
 symbolsArray:	.asciiz	"+-*/"
 
