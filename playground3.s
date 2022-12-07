@@ -53,6 +53,10 @@ msg2:   .asciiz "To verify, your expression is: "
 numsArray:	.asciiz	"0123456789"
 symbolsArray:	.asciiz	"+-*/"
 
+buffer: .space 20
+str1:  .asciiz "Enter string"
+str2:  .asciiz "You wrote:\n"
+
     .text
     .globl main
 main:
@@ -62,17 +66,21 @@ main:
 	syscall 		# system call
 
     # GET USER INPUT
-	li 	$v0, 5	 	# read 1st input integer
-	syscall 		# system call
+	li $v0, 8       # take in input
 
-    li $t0, 11          # loading 11 into temporary register $t0 (counter/decrement variable)  
-    li $t1, 0         # loading 0 into temporary register $t1 (total/sum variable)
+    la $a0, buffer  # load byte space into address
+    li $a1, 20      # allot the byte space for string
 
-loop:
-    sub $t0, 1         # subtract one from $t1
-    add $t1, $t1, $t0  # add the value of $t1 to $t0 and save it in $t0
-    bne $0, $t0, loop  # check if the counter variable is 0, if not then loop back
+    move $t0, $a0   # save string to t0
+    syscall
+
+    la $a0, str2    # load and print "you wrote" string
+    li $v0, 4
+    syscall
+
+    la $a0, buffer  # reload byte space to primary address
+    li $v0, 4       # print string
+    syscall
 
     li $v0, 10      # end program
     syscall
-    .end
